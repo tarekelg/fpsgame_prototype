@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://c83kv3wccd4d6"]
+
+[ext_resource type="Script" uid="uid://cfd3osssjfwsh" path="res://FPSController/fps_controller.gd" id="1_2j53v"]
+[ext_resource type="Texture2D" uid="uid://cwj8m616wrfvu" path="res://Assets/kenney_prototype-textures/PNG/Light/texture_06.png" id="2_jryqt"]
+[ext_resource type="Texture2D" uid="uid://dqkts6yfbh1v1" path="res://Assets/kenney_prototype-textures/Vector/texture_01.svg" id="3_vcg3l"]
+[ext_resource type="Script" uid="uid://d2ut3ilkvpboo" path="res://FPSController/cast_ability.gd" id="4_2veyp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f6xud"]
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vcg3l"]
+albedo_texture = ExtResource("2_jryqt")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2veyp"]
+material = SubResource("StandardMaterial3D_vcg3l")
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2veyp"]
+height = 1.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oijtd"]
+albedo_texture = ExtResource("3_vcg3l")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_48f3b"]
+material = SubResource("StandardMaterial3D_oijtd")
+height = 1.3
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_2j53v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.999992, 0)
+shape = SubResource("CapsuleShape3D_f6xud")
+debug_color = Color(0, 0.610395, 0.635621, 0.42)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_2veyp")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35966, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="Hand0" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0596601, -2.13928)
+
+[node name="CastPoint" type="Node3D" parent="Head/Hand0"]
+script = ExtResource("4_2veyp")
+
+[node name="RayCast3D" type="RayCast3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="CrouchShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+visible = false
+shape = SubResource("CapsuleShape3D_2veyp")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CrouchShape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0135137, 0)
+mesh = SubResource("CapsuleMesh_48f3b")
+
+[node name="DebugCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27007, 1.80485)
+
+[node name="DebugCam1" type="Camera3D" parent="."]
+transform = Transform3D(-4.11003e-08, -0.340445, 0.940264, -1.48813e-08, 0.940264, 0.340445, -1, 0, -4.37114e-08, 8.30081, 4.30085, -2.81694)

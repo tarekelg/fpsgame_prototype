@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bh1l2rphnle2g"]
+
+[ext_resource type="Script" uid="uid://dr50cctouht1f" path="res://bullet.gd" id="1_v7oki"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_v7oki"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_v7oki"]
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_v7oki")
+
+[node name="BulletObj" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_v7oki")
+
+[node name="Blast" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Blast"]
+shape = SubResource("SphereShape3D_v7oki")
+
+[node name="Pistol" type="Node3D" parent="."]

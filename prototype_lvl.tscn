@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://b70wvh5djt8j2"]
+
+[ext_resource type="Texture2D" uid="uid://k17t7xu2423j" path="res://Assets/kenney_prototype-textures/PNG/Green/texture_01.png" id="1_bcnlu"]
+[ext_resource type="Script" uid="uid://pae2cq4qmny3" path="res://prototype_lvl.gd" id="1_klijh"]
+[ext_resource type="Texture2D" uid="uid://d4fk4387jbafh" path="res://Assets/kenney_prototype-textures/PNG/Red/texture_01.png" id="2_5dimi"]
+[ext_resource type="PackedScene" uid="uid://c83kv3wccd4d6" path="res://FPSController/FPSController.tscn" id="3_5dimi"]
+[ext_resource type="Texture2D" uid="uid://dqkts6yfbh1v1" path="res://Assets/kenney_prototype-textures/Vector/texture_01.svg" id="3_e6j0u"]
+[ext_resource type="PackedScene" uid="uid://dyj8tk7hjpyy6" path="res://hud.tscn" id="5_slxol"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e6j0u"]
+albedo_texture = ExtResource("1_bcnlu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slxol"]
+albedo_texture = ExtResource("2_5dimi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klijh"]
+albedo_texture = ExtResource("3_e6j0u")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vuoq"]
+albedo_texture = ExtResource("3_e6j0u")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_getn7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wr0eu"]
+
+[node name="PrototypeLvl" type="Node3D"]
+script = ExtResource("1_klijh")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+size = Vector3(100, 2, 100)
+material = SubResource("StandardMaterial3D_e6j0u")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.195, 0, 9.018)
+size = Vector3(10.095, 1, 6.798)
+material = SubResource("StandardMaterial3D_e6j0u")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 40)
+radius = 1.5
+height = 4.0
+material = SubResource("StandardMaterial3D_e6j0u")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -9.84146)
+radius = 1.0
+material = SubResource("StandardMaterial3D_slxol")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4807, 2.02623, 0)
+size = Vector3(3, 1, 3)
+material = SubResource("StandardMaterial3D_klijh")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.1773, 2.05523, -19.0254)
+size = Vector3(6, 6, 2)
+material = SubResource("StandardMaterial3D_4vuoq")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3108, 0, -7.90527)
+size = Vector3(4, 2, 4)
+material = SubResource("StandardMaterial3D_getn7")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4118, 1.13846, -3.55244)
+size = Vector3(3, 1, 3)
+material = SubResource("StandardMaterial3D_wr0eu")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("3_5dimi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.28817, 0, 0.023)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.64812, 0.761538, 0, -0.761538, 0.64812, -3.93425, 32.8647, 36.8434)
+shadow_enabled = true
+
+[node name="HUD" parent="." instance=ExtResource("5_slxol")]
+
+[connection signal="weapon_switched" from="CharacterBody3D" to="." method="_on_character_body_3d_weapon_switched"]
