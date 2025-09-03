@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c83kv3wccd4d6"]
+[gd_scene load_steps=12 format=3 uid="uid://c83kv3wccd4d6"]
 
 [ext_resource type="Script" uid="uid://cfd3osssjfwsh" path="res://FPSController/fps_controller.gd" id="1_2j53v"]
 [ext_resource type="Texture2D" uid="uid://cwj8m616wrfvu" path="res://Assets/kenney_prototype-textures/PNG/Light/texture_06.png" id="2_jryqt"]
 [ext_resource type="Texture2D" uid="uid://dqkts6yfbh1v1" path="res://Assets/kenney_prototype-textures/Vector/texture_01.svg" id="3_vcg3l"]
 [ext_resource type="Script" uid="uid://d2ut3ilkvpboo" path="res://FPSController/cast_ability.gd" id="4_2veyp"]
+[ext_resource type="PackedScene" uid="uid://d1b6a3ppxhhwj" path="res://weapon.tscn" id="4_oijtd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f6xud"]
 height = 1.8
@@ -44,11 +45,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35966, 0)
 [node name="Hand0" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0596601, -2.13928)
 
-[node name="CastPoint" type="Node3D" parent="Head/Hand0"]
-script = ExtResource("4_2veyp")
-
 [node name="RayCast3D" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="CastPoint" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0596601, -2.13928)
+script = ExtResource("4_2veyp")
+
+[node name="Weapon" parent="Head" instance=ExtResource("4_oijtd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6)
 
 [node name="CrouchShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)

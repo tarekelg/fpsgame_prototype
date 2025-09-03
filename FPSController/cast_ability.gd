@@ -4,18 +4,22 @@ extends Node3D
 @export var primary_weapon_id : int = 0 #id of the equipped primary weapon
 @export var secondary_weapon_id : int = 0 #id of the equipped secondary weapon
 @export var melee_weapon_id : int = 0 #id of the equipped melee weapon 
-
+@export var array_weapons=["Pistol", "AK47", "Shotgun", "Knife"]
 
 var bullet_scene = preload("res://bullet.tscn")
 var firing_rate=0.5
 var timer=0.5
 
-@export var projectile_type_id : int = 1
+
+@export var projectile_type_id : int
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	projectile_type_id = 0
+	primary_weapon_id=1
+	secondary_weapon_id=0
+	melee_weapon_id=3
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

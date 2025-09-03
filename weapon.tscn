@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1b6a3ppxhhwj"]
+
+[ext_resource type="ArrayMesh" uid="uid://blijc60y16pj6" path="res://Assets/ultimate_gun_pack_by_quaternius/Ultimate Gun Pack - July 2019/OBJ/Pistol_1.obj" id="1_8xwfw"]
+[ext_resource type="ArrayMesh" uid="uid://ckqfl785n3wgc" path="res://Assets/ultimate_gun_pack_by_quaternius/Ultimate Gun Pack - July 2019/OBJ/AssaultRifle_2.obj" id="2_3fy1u"]
+[ext_resource type="ArrayMesh" uid="uid://btryf3ecd3t10" path="res://Assets/ultimate_gun_pack_by_quaternius/Ultimate Gun Pack - July 2019/OBJ/Shotgun_4.obj" id="3_ne3tx"]
+[ext_resource type="ArrayMesh" uid="uid://d0qrn2it4f5x3" path="res://Assets/ultimate_gun_pack_by_quaternius/Ultimate Gun Pack - July 2019/OBJ/Accessories/Bayonet.obj" id="4_3fy1u"]
+
+[node name="Weapon" type="Node3D"]
+
+[node name="Pistol" type="MeshInstance3D" parent="."]
+transform = Transform3D(-8.74228e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.74228e-09, 0.2, -0.2, 0)
+mesh = ExtResource("1_8xwfw")
+
+[node name="AK47" type="MeshInstance3D" parent="."]
+transform = Transform3D(-8.74228e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.74228e-09, 0.2, -0.2, 0.4)
+visible = false
+mesh = ExtResource("2_3fy1u")
+
+[node name="Shotgun" type="MeshInstance3D" parent="."]
+visible = false
+mesh = ExtResource("3_ne3tx")
+
+[node name="Knife" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.259785, -0.145661, 0.0359822, 0.0219359, 0.0343002, 0.297224, -0.148427, 0.260013, -0.0190516, 0.3, -0.2, 0.3)
+visible = false
+mesh = ExtResource("4_3fy1u")
