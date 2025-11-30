@@ -2,6 +2,10 @@ extends CharacterBody3D
 
 #signals
 signal weapon_switched(weapon_name: String)
+signal new_hitmarker(new_position : Vector3)
+
+#states for animation later
+enum States {IDLE, RUNNING, JUMPING, CROUCHING}
 
 # Movement
 const MAX_VELOCITY_AIR = 0.6
@@ -39,6 +43,11 @@ func _ready():
 	current_height=PLAYER_HEIGHT
 	$CrouchShape.disabled=true
 	$CrouchShape.visible=false
+	
+	$Head/CastPoint.active_weapon_id=$Head/CastPoint.primary_weapon_id
+	show_weapon_model($Head/CastPoint.primary_weapon_id)
+	
+	
 	
 func _input(event):
 	# Mouse lock
@@ -232,17 +241,47 @@ func switch_weapon(type : int):
 		current_weapon="primary"
 		# Switching Bullet Type
 		# Bullet object for now
-		$Head/Hand0/CastPoint.projectile_type_id=0
+	
+		$Head/CastPoint.active_weapon_id=$Head/CastPoint.primary_weapon_id
+		show_weapon_model($Head/CastPoint.primary_weapon_id)		
 	elif type ==2:
 		current_weapon="secondary"
 		# Switching Bullet Type
 		# Raycast for now
-		$Head/Hand0/CastPoint.projectile_type_id=1
+		
+		$Head/CastPoint.active_weapon_id=$Head/CastPoint.secondary_weapon_id
+		
+		show_weapon_model($Head/CastPoint.secondary_weapon_id)	
+		
 	elif type ==3:
 		current_weapon="melee"
-		
+		$Head/CastPoint.active_weapon_id=$Head/CastPoint.melee_weapon_id
+		show_weapon_model($Head/CastPoint.melee_weapon_id)	
+	
+	#set the weapon cooldown timer
+	$Head/CastPoint/CooldownTimer.wait_time=$Head/CastPoint.dict_weapons[$Head/CastPoint.active_weapon_id]["cooldown_time"]
+	print($Head/CastPoint/CooldownTimer.wait_time)
+	
 	emit_signal("weapon_switched",current_weapon)
+
+# Show the Weapon Model on Screen
+
+func show_weapon_model(weapon_id : int):
+	# hide all weapon models as default
+	var all_models=$Head/Weapon.get_children()
+	for model in all_models:
+		model.visible=false
+		
+	for model in all_models:
+		
+		if model.name==$Head/CastPoint.dict_weapons[weapon_id].weapon_name:
+			model.visible=true
+			break
 	
 	
 
-	
+
+func _on_cast_point_new_hitmarker(position: Vector3, hit_counter :int) -> void:
+	print("new hitmarker")
+	print_debug(position)
+	emit_signal("new_hitmarker", position, hit_counter)

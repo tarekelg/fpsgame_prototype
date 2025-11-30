@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b70wvh5djt8j2"]
+[gd_scene load_steps=15 format=3 uid="uid://b70wvh5djt8j2"]
 
 [ext_resource type="Texture2D" uid="uid://k17t7xu2423j" path="res://Assets/kenney_prototype-textures/PNG/Green/texture_01.png" id="1_bcnlu"]
 [ext_resource type="Script" uid="uid://pae2cq4qmny3" path="res://prototype_lvl.gd" id="1_klijh"]
@@ -22,6 +22,14 @@ albedo_texture = ExtResource("3_e6j0u")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_getn7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wr0eu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jcacv"]
+albedo_color = Color(1, 1, 0.0627451, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_4hj3g"]
+material = SubResource("StandardMaterial3D_jcacv")
+radius = 0.1
+height = 0.2
 
 [node name="PrototypeLvl" type="Node3D"]
 script = ExtResource("1_klijh")
@@ -79,4 +87,11 @@ shadow_enabled = true
 
 [node name="HUD" parent="." instance=ExtResource("5_slxol")]
 
+[node name="HitMarker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.18404, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HitMarker"]
+mesh = SubResource("SphereMesh_4hj3g")
+
+[connection signal="new_hitmarker" from="CharacterBody3D" to="." method="_on_character_body_3d_new_hitmarker"]
 [connection signal="weapon_switched" from="CharacterBody3D" to="." method="_on_character_body_3d_weapon_switched"]
